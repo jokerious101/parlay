@@ -21,3 +21,4 @@ Route.on('/').render('welcome')
 
 Route.resource('/league', 'LeagueController')
 Route.resource('/match', 'MatchController')
+Route.resource('/team', 'TeamController')
