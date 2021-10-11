@@ -19,4 +19,5 @@ const Route = use('Route')
 Route.on('/').render('welcome')
 
 
-Route.resource('league', 'LeagueController')
+Route.resource('/league', 'LeagueController')
+Route.resource('/match', 'MatchController')
