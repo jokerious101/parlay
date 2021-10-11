@@ -70,7 +70,6 @@ class LeagueController {
         } catch (error) {
             response.status(400).send(error.message);
         }
-
     }
 
     /**
