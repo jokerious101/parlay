@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +14,10 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-const Route = use('Route')
+const Route = use("Route");
 
-Route.on('/').render('welcome')
+Route.get("/", "HomeController.index");
 
-
-Route.resource('/league', 'LeagueController')
-Route.resource('/match', 'MatchController')
-Route.resource('/team', 'TeamController')
+Route.resource("/league", "LeagueController");
+Route.resource("/match", "MatchController");
+Route.resource("/team", "TeamController");
