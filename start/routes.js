@@ -17,7 +17,7 @@
 const Route = use("Route");
 
 Route.get("/", "HomeController.index");
-
 Route.resource("/league", "LeagueController");
 Route.resource("/match", "MatchController");
 Route.resource("/team", "TeamController");
+Route.resource("/bet", "BetController");
