@@ -24,7 +24,12 @@ Route.resource('/league', 'LeagueController');
 Route.resource('/match', 'MatchController');
 Route.resource('/team', 'TeamController');
 Route.resource('/bet', 'BetController');
+
+Route.get('/register', 'UserController.register');
+Route.resource('/login', 'UserController');
+
 Route.resource('/user', 'UserController');
+
 
 Route.post('login', 'UserController.login').middleware('guest');
 

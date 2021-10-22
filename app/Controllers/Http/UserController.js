@@ -23,8 +23,18 @@ class UserController {
     async index ({ request, response, view }) {
         try {
             const user = await User.all();
+            return view.render("login", user);
+            // response.send(user);
+        } catch (error) {
+            response.status(400).send('Server Error');
+        }
+    }
 
-            response.send(user);
+    async register ({ request, response, view }) {
+        try {
+            const user = await User.all();
+            return view.render("register", user);
+            // response.send(user);
         } catch (error) {
             response.status(400).send('Server Error');
         }
@@ -84,6 +94,8 @@ class UserController {
         //     return "You cannot see someone else's profile"
         // }
         // return auth.user
+
+        console.log('paramsss', params)
 
         try {
             const validation = await validate(request.params, User.rulesShow);
