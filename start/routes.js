@@ -1,7 +1,7 @@
 "use strict";
 
-const HomeController = require('../app/Controllers/Http/HomeController');
-const DashboardController = require('../app/Controllers/Http/DashboardController');
+const HomeController = require("../app/Controllers/Http/HomeController");
+const DashboardController = require("../app/Controllers/Http/DashboardController");
 
 /*
 |--------------------------------------------------------------------------
@@ -19,27 +19,28 @@ const DashboardController = require('../app/Controllers/Http/DashboardController
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 
-
 // Route.on('/').render('welcome')
 
 Route.get("/", "HomeController.index");
 Route.get("/dashboard", "DashboardController.index");
-Route.resource('/league', 'LeagueController');
-Route.resource('/match', 'MatchController');
-Route.resource('/team', 'TeamController');
-Route.resource('/bet', 'BetController');
 
-Route.get('/register', 'UserController.register');
-Route.resource('/login', 'UserController');
+//matches admin view
+Route.get("/match/create", "DashboardController.createMatchView");
 
-Route.resource('/user', 'UserController');
-Route.resource('/dashboard', 'HomeController')
+Route.resource("/league", "LeagueController");
+Route.resource("/match", "MatchController");
+Route.resource("/team", "TeamController");
+Route.resource("/bet", "BetController");
 
+Route.get("/register", "UserController.register");
+Route.resource("/login", "UserController");
 
-Route.post('login', 'UserController.login').middleware('guest');
+Route.resource("/user", "UserController");
+Route.resource("/dashboard", "HomeController");
 
-Route.get('users/:id', 'UserController.show').middleware('auth');
-Route.post('register', 'UserController.store').middleware('guest');
+Route.post("login", "UserController.login").middleware("guest");
+
+Route.get("users/:id", "UserController.show").middleware("auth");
+Route.post("register", "UserController.store").middleware("guest");
 
 // Route.on('/dashboard').render('dashboard');
-
