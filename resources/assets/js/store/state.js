@@ -1,4 +1,7 @@
 let state = {
-    matches: []
+    matches: [],
+    leagues: [],
+    teams: [],
+    users: [],
 };
 export default state;

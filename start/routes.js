@@ -2,6 +2,7 @@
 
 const HomeController = require("../app/Controllers/Http/HomeController");
 const DashboardController = require("../app/Controllers/Http/DashboardController");
+const { RouteResource } = require("@adonisjs/framework/src/Route/Manager");
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,22 @@ Route.get("/", "HomeController.index");
 Route.get("/dashboard", "DashboardController.index");
 
 //matches admin view
-Route.get("/match/create", "DashboardController.createMatchView");
+Route.get("/dashboard/match/create", "DashboardController.createMatchView");
+Route.get("/dashboard/matches/all", "DashboardController.getMatchView");
+
+//leagues admin view
+Route.get("/dashboard/league/create", "DashboardController.createLeagueView");
+Route.get("/dashboard/leagues/all", "DashboardController.getLeagueView");
+
+//teams admin view
+Route.get("/dashboard/team/create", "DashboardController.createTeamView");
+Route.get("/dashboard/teams/all", "DashboardController.getTeamView");
+
+//users admin view
+Route.get("/dashboard/users/all", "DashboardController.getUserView");
+
+//users admin view
+Route.get("/dashboard/bets/all", "DashboardController.getBetView");
 
 Route.resource("/league", "LeagueController");
 Route.resource("/match", "MatchController");
@@ -44,3 +60,7 @@ Route.get("users/:id", "UserController.show").middleware("auth");
 Route.post("register", "UserController.store").middleware("guest");
 
 // Route.on('/dashboard').render('dashboard');
+
+Route.get("api/league", "LeagueController.index");
+Route.get('api/team', "TeamController.index");
+Route.get('api/user', "UserController.getAll");

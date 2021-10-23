@@ -165,6 +165,48 @@ let actions = {
         //     .catch(err => {
         //         console.log(err);
         //     });
+    },
+
+    //GET ALL LEAGUES
+    async GET_LEAGUES({ commit }){
+        try{
+        let leagues = await axios('/league')
+            .then(response => {
+                return response.data;
+            });
+            commit('SET_LEAGUES', leagues);
+            console.log("leagues", leagues);
+        } catch(error){
+
+        }
+    },
+
+    //GET ALL TEAMS
+    async GET_TEAMS({ commit }){
+        try{
+        let teams = await axios('/team')
+            .then(response => {
+                return response.data;
+            });
+            commit('SET_TEAMS', teams);
+            console.log("teams", teams);
+        } catch(error){
+
+        }
+    },
+
+       //GET ALL USERS
+       async GET_USERS({ commit }){
+        try{
+        let users = await axios('/user')
+            .then(response => {
+                return response.data;
+            });
+            commit('SET_USERS', users);
+            console.log("users", users);
+        } catch(error){
+
+        }
     }
 };
 

@@ -30,6 +30,16 @@ class UserController {
         }
     }
 
+    async getAll ({ request, response, view }) {
+        try {
+            const users = await User.all();
+
+            response.send(users);
+        } catch (error) {
+            response.status(400).send('Server Error');
+        }
+    }
+
     async register ({ request, response, view }) {
         try {
             const user = await User.all();
