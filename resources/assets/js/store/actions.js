@@ -207,7 +207,37 @@ let actions = {
         } catch(error){
 
         }
+    },
+
+    async LOGIN({ commit }, payload){
+        try{
+        console.log('payload', payload)
+        let users = await axios.post('/login', payload)
+            .then(response => {
+                return response.data;
+            });
+            commit('SET_COOKIE', users);
+            console.log("users", users);
+        } catch(error){
+
+        }
+    },
+
+    async REGISTER({ commit }, payload){
+        try{
+        console.log('payload', payload)
+        let users = await axios.post('/register', payload)
+            .then(response => {
+                return response.data;
+            });
+            commit('SET_COOKIE', users);
+            console.log("users", users);
+        } catch(error){
+
+        }
     }
+
+
 };
 
 export default actions;

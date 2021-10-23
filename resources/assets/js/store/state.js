@@ -3,5 +3,6 @@ let state = {
     leagues: [],
     teams: [],
     users: [],
+    user: null
 };
 export default state;

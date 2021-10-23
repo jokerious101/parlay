@@ -71,9 +71,10 @@ class UserController {
      * @param {Response} ctx.response
      */
     async store ({ request, response }) {
+        console.log('req', request.body)
         try {
             const validation = await validate(request.all(), User.rulesStore);
-
+            console.log('validation', validation)
             if (!validation.fails()) {
                 const data = request.only([
                     'username', 'email', 'password'
@@ -86,6 +87,7 @@ class UserController {
                 response.status(400).send(validation.messages());
             }
         } catch (error) {
+            console.log('error', error)
             response.status(400).send(error.message);
         }
     }
@@ -196,13 +198,18 @@ class UserController {
     }
 
     async login ({ auth, request, response }) {
+        console.log('resss', request.body)
         try {
             const { username, password } = request.all();
+            console.log('username:', username)
             const user                   = await auth.attempt(username, password);
 
-            response.send(user);
+            return response.send(user);
+
         } catch(error) {
-            response.status(400).send(error.message);
+            console.log('error', error)
+            response.status(400).send('Invalid credentials')
+            return
         }
     }
 }

@@ -54,10 +54,10 @@ Route.resource("/login", "UserController");
 Route.resource("/user", "UserController");
 Route.resource("/dashboard", "HomeController");
 
-Route.post("login", "UserController.login").middleware("guest");
+Route.post("/api/login", "UserController.login").middleware("guest");
 
 Route.get("users/:id", "UserController.show").middleware("auth");
-Route.post("register", "UserController.store").middleware("guest");
+Route.post("/api/register", "UserController.store").middleware("guest");
 
 // Route.on('/dashboard').render('dashboard');
 
