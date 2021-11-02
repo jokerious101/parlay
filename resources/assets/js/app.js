@@ -15,6 +15,7 @@ Vue.component('createleague', require("../components/dashboard/CreateLeague.vue"
 Vue.component('leagues', require("../components/dashboard/League.vue").default);
 Vue.component('teams', require("../components/dashboard/Team.vue").default);
 Vue.component('users', require("../components/dashboard/User.vue").default);
+Vue.component('bets', require("../components/dashboard/Bet.vue").default);
 
 const app = new Vue({
     el: "#app",

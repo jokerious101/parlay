@@ -3,6 +3,7 @@
 const HomeController = require("../app/Controllers/Http/HomeController");
 const DashboardController = require("../app/Controllers/Http/DashboardController");
 const { RouteResource } = require("@adonisjs/framework/src/Route/Manager");
+const TeamController = require("../app/Controllers/Http/TeamController");
 
 /*
 |--------------------------------------------------------------------------
@@ -60,9 +61,13 @@ Route.get("users/:id", "UserController.show").middleware("auth");
 Route.post("/api/register", "UserController.store").middleware("guest");
 
 Route.get("/api/user/show", "UserController.show").middleware("auth");
+Route.post("register", "UserController.store").middleware("guest");
+Route.post("api/create/team", "TeamController.store");
+Route.post("api/create/league", "LeagueController.store");
 
 // Route.on('/dashboard').render('dashboard');
 
 Route.get("api/league", "LeagueController.index");
 Route.get('api/team', "TeamController.index");
 Route.get('api/user', "UserController.getAll");
+Route.get('api/bet', "BetController.index");
