@@ -1,5 +1,9 @@
 "use strict";
 
+const HomeController = require("../app/Controllers/Http/HomeController");
+const DashboardController = require("../app/Controllers/Http/DashboardController");
+const { RouteResource } = require("@adonisjs/framework/src/Route/Manager");
+
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -16,23 +20,49 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 
-
 // Route.on('/').render('welcome')
 
-Route.get("/", "HomeController.index");
-Route.resource('/league', 'LeagueController');
-Route.resource('/match', 'MatchController');
-Route.resource('/team', 'TeamController');
-Route.resource('/bet', 'BetController');
+Route.get("/", "HomeController.index").middleware("auth");
+Route.get("/dashboard", "DashboardController.index");
 
-Route.get('/register', 'UserController.register');
-Route.resource('/login', 'UserController');
+//matches admin view
+Route.get("/dashboard/match/create", "DashboardController.createMatchView");
+Route.get("/dashboard/matches/all", "DashboardController.getMatchView");
 
-Route.resource('/user', 'UserController');
+//leagues admin view
+Route.get("/dashboard/league/create", "DashboardController.createLeagueView");
+Route.get("/dashboard/leagues/all", "DashboardController.getLeagueView");
 
+//teams admin view
+Route.get("/dashboard/team/create", "DashboardController.createTeamView");
+Route.get("/dashboard/teams/all", "DashboardController.getTeamView");
 
-Route.post('login', 'UserController.login').middleware('guest');
+//users admin view
+Route.get("/dashboard/users/all", "DashboardController.getUserView");
 
-Route.get('users/:id', 'UserController.show').middleware('auth');
-Route.post('register', 'UserController.store').middleware('guest');
+//users admin view
+Route.get("/dashboard/bets/all", "DashboardController.getBetView");
 
+Route.resource("/league", "LeagueController");
+Route.resource("/match", "MatchController");
+Route.resource("/team", "TeamController");
+Route.resource("/bet", "BetController");
+
+Route.get("/register", "UserController.register");
+Route.resource("/login", "UserController");
+
+Route.resource("/user", "UserController");
+Route.resource("/dashboard", "HomeController");
+
+Route.post("/api/login", "UserController.login").middleware("guest");
+
+Route.get("users/:id", "UserController.show").middleware("auth");
+Route.post("/api/register", "UserController.store").middleware("guest");
+
+Route.get("/api/user/show", "UserController.show").middleware("auth");
+
+// Route.on('/dashboard').render('dashboard');
+
+Route.get("api/league", "LeagueController.index");
+Route.get('api/team', "TeamController.index");
+Route.get('api/user', "UserController.getAll");

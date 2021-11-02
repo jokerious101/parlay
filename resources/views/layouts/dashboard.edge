@@ -15,12 +15,27 @@
       body{
         min-height: 100vh;
       }
+        .is-fullheight.columns {
+        height: calc(100vh - ( 3.25rem - .75rem ) );
+      } 
+      #border-sidenav{
+        border-right: 1px solid #00d1b2;
+      }
     </style>
   </head>
   <body>
     @include('partials/header')
     <div id="app" class="p-3">
-      @!section('content')
+      <div class="columns is-fullheight">
+        <div class="column is-2 is-sidebar-menu" id="border-sidenav">
+          @include('partials/sidebar')
+        </div>
+        <div class="column   is-main-content">
+          <div class="section">
+            @!section('content')
+          </div>
+        </div>
+      </div>
     </div>
     @include('partials/footer')
   </body>

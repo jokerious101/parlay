@@ -1,7 +1,8 @@
 "use strict";
 
 class HomeController {
-    async index({ view }) {
+    async index({ auth, view }) {
+        console.log('user', await auth.getUser())
         return view.render("home");
     }
 }

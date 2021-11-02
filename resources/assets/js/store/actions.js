@@ -165,7 +165,93 @@ let actions = {
         //     .catch(err => {
         //         console.log(err);
         //     });
-    }
+    },
+
+    //GET ALL LEAGUES
+    async GET_LEAGUES({ commit }){
+        try{
+        let leagues = await axios('/league')
+            .then(response => {
+                return response.data;
+            });
+            commit('SET_LEAGUES', leagues);
+            console.log("leagues", leagues);
+        } catch(error){
+
+        }
+    },
+
+    //GET ALL TEAMS
+    async GET_TEAMS({ commit }){
+        try{
+        let teams = await axios('/team')
+            .then(response => {
+                return response.data;
+            });
+            commit('SET_TEAMS', teams);
+            console.log("teams", teams);
+        } catch(error){
+
+        }
+    },
+
+       //GET ALL USERS
+       async GET_USERS({ commit }){
+        try{
+        let users = await axios('/user')
+            .then(response => {
+                return response.data;
+            });
+            commit('SET_USERS', users);
+            console.log("users", users);
+        } catch(error){
+
+        }
+    },
+
+    async LOGIN({ commit }, payload){
+        try{
+        console.log('payload', payload)
+        let user = await axios.post('/login', payload)
+            .then(response => {
+                return response.data;
+            });
+            console.log('userdata', user)
+            commit('SET_COOKIE', user);
+            return user;
+        } catch(error){
+            console.log("error", error);
+        }
+    },
+
+    async REGISTER({ commit }, payload){
+        try{
+        console.log('payload', payload)
+        let users = await axios.post('/register', payload)
+            .then(response => {
+                return response.data;
+            });
+            commit('SET_COOKIE', users);
+        } catch(error){
+            console.log('error', error)
+        }
+    },
+
+    async GET_USER_DATA({ commit }, payload){
+        try{
+        let user = await axios.get('/user/show', payload)
+            .then(response => {
+                return response;
+            });
+            console.log('GET USER DATA', user)
+            commit('SET_COOKIE', user);
+            return user;
+        } catch(error){
+            console.log("error", error);
+        }
+    },
+
+
 };
 
 export default actions;

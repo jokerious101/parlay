@@ -30,6 +30,16 @@ class UserController {
         }
     }
 
+    async getAll ({ request, response, view }) {
+        try {
+            const users = await User.all();
+
+            response.send(users);
+        } catch (error) {
+            response.status(400).send('Server Error');
+        }
+    }
+
     async register ({ request, response, view }) {
         try {
             const user = await User.all();
@@ -61,9 +71,10 @@ class UserController {
      * @param {Response} ctx.response
      */
     async store ({ request, response }) {
+        console.log('req', request.body)
         try {
             const validation = await validate(request.all(), User.rulesStore);
-
+            console.log('validation', validation)
             if (!validation.fails()) {
                 const data = request.only([
                     'username', 'email', 'password'
@@ -76,6 +87,7 @@ class UserController {
                 response.status(400).send(validation.messages());
             }
         } catch (error) {
+            console.log('error', error)
             response.status(400).send(error.message);
         }
     }
@@ -99,7 +111,7 @@ class UserController {
 
         try {
             const validation = await validate(request.params, User.rulesShow);
-
+            console.log("auth.user", auth.user)
             if (!validation.fails()) {
                 const user = await User.find(request.params.id);
 
@@ -186,13 +198,37 @@ class UserController {
     }
 
     async login ({ auth, request, response }) {
+        const username = request.input("username")
+        const password = request.input("password");
         try {
-            const { username, password } = request.all();
-            const user                   = await auth.attempt(username, password);
+            if (await auth.attempt(username, password)) {
+                let user = await User.findBy('username', username)
+                let accessToken = await auth.generate(user)
 
-            response.send(user);
+                return response.json({
+                    success: true, 
+                    user:user, 
+                    access_token: accessToken})
+              }
+            // const { username, password } = request.all();
+            // const user                   = await auth.attempt(username, password);
+
+            // // console.log('asdasd', await auth.getUser())
+
+            // // const asd = await auth.use('basic').authenticate()
+
+            // return response.status(200).send({
+            //     success: true,
+            //     user: user
+            // });
+
         } catch(error) {
-            response.status(400).send(error.message);
+            console.log('error', error)
+            response.status(400).send({
+                success: false,
+                message:"Invalid Credentials"
+            })
+            return
         }
     }
 }
