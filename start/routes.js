@@ -22,7 +22,7 @@ const Route = use("Route");
 
 // Route.on('/').render('welcome')
 
-Route.get("/", "HomeController.index");
+Route.get("/", "HomeController.index").middleware("auth");
 Route.get("/dashboard", "DashboardController.index");
 
 //matches admin view
@@ -58,6 +58,8 @@ Route.post("/api/login", "UserController.login").middleware("guest");
 
 Route.get("users/:id", "UserController.show").middleware("auth");
 Route.post("/api/register", "UserController.store").middleware("guest");
+
+Route.get("/api/user/show", "UserController.show").middleware("auth");
 
 // Route.on('/dashboard').render('dashboard');
 

@@ -212,14 +212,15 @@ let actions = {
     async LOGIN({ commit }, payload){
         try{
         console.log('payload', payload)
-        let users = await axios.post('/login', payload)
+        let user = await axios.post('/login', payload)
             .then(response => {
                 return response.data;
             });
-            commit('SET_COOKIE', users);
-            console.log("users", users);
+            console.log('userdata', user)
+            commit('SET_COOKIE', user);
+            return user;
         } catch(error){
-
+            console.log("error", error);
         }
     },
 
@@ -231,11 +232,24 @@ let actions = {
                 return response.data;
             });
             commit('SET_COOKIE', users);
-            console.log("users", users);
         } catch(error){
-
+            console.log('error', error)
         }
-    }
+    },
+
+    async GET_USER_DATA({ commit }, payload){
+        try{
+        let user = await axios.get('/user/show', payload)
+            .then(response => {
+                return response;
+            });
+            console.log('GET USER DATA', user)
+            commit('SET_COOKIE', user);
+            return user;
+        } catch(error){
+            console.log("error", error);
+        }
+    },
 
 
 };

@@ -12,8 +12,8 @@ let mutations = {
         state.users = users;
     },
     SET_COOKIE(state, users){
-        console.log('users', users)
-        state.users = users;
+        console.log('userszz', users)
+        state.user = users;
     }
 };
 

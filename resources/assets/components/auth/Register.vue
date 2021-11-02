@@ -45,7 +45,7 @@
                         </span>
                     </div>
                 </div>
-                <!-- <div class="field">
+                <div class="field">
                     <label for="" class="label">Confirm Password</label>
                     <div class="control has-icons-left">
                         <input 
@@ -59,13 +59,17 @@
                         <i class="fa fa-lock"></i>
                         </span>
                     </div>
-                </div> -->
+                </div>
+
+                <div v-if="!!this.confirmPassword && this.password != this.confirmPassword">
+                    <label for="" class="label">Password does not match</label>
+                </div>
 
                 <label class="checkbox" style="margin: 20px;">
                     <input type="checkbox">
                         Remember me
                     </label>
-                <button class="button is-block is-danger is-large is-fullwidth" @click="register">Sign-up</button>
+                <button name="submit" type="button" class="button is-block is-danger is-large is-fullwidth" @click="register">Sign-up</button>
                 <br />
                 <p class="has-text-grey">
                 <a href="">Login</a> &nbsp;·&nbsp;
@@ -118,7 +122,15 @@ export default {
             }
             const register = await this.$store.dispatch("REGISTER", payload)
             console.log('asdasaaaaaaaa', register)
+        },
+
+        check_pass() {
+        if (this.password == this.password.confirmPassword) {
+            document.getElementById('submit').disabled = false;
+        } else {
+            document.getElementById('submit').disabled = true;
         }
+}
     }
 };
 </script>

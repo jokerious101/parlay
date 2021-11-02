@@ -35,7 +35,7 @@
                     <input type="checkbox">
                         Remember me
                     </label>
-                <button class="button is-block is-danger is-large is-fullwidth" @click="login">Login</button>
+                <button type ="button" class="button is-block is-danger is-large is-fullwidth" @click="login">Login</button>
                 <br/>
                 <p class="has-text-grey">
                 <a href="">Sign Up</a> &nbsp;·&nbsp;
@@ -53,6 +53,7 @@
 
 
 <script>
+import { mapState } from "vuex";
 export default {
     name: 'Login',
     components: {
@@ -68,6 +69,9 @@ export default {
     mounted() {
         // this.$store.dispatch("GET_MATCHES");
     },
+    computed: {
+        ...mapState(["user"])
+    },
     methods: {
         async login(){
             const payload = {
@@ -75,10 +79,13 @@ export default {
                 password: this.password
             }
             const login = await this.$store.dispatch("LOGIN", payload)
-            console.log('asdasaaaaaaaa', login)
-            console.log('asdad', this.username)
-            console.log('asdad', this.password)
+            if(login.success){
+                window.location = "/";
+            }
         }
+    },
+    created(){
+        console.log("user state: ",this.user)
     }
 };
 </script>
