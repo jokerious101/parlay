@@ -3,6 +3,8 @@ let state = {
     leagues: [],
     teams: [],
     users: [],
-    user: null
+    user: null,
+    bets: [],
+    teams: null,
 };
 export default state;

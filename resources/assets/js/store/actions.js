@@ -1,3 +1,5 @@
+import axios from "axios";
+
 let actions = {
     GET_MATCHES({ commit }) {
         console.log("called GET_MATCHES");
@@ -252,6 +254,49 @@ let actions = {
     },
 
 
+     //GET ALL BETS
+     async GET_BETS({ commit }){
+        try{
+        let bets = await axios('/bet')
+            .then(response => {
+                return response.data;
+            });
+            commit('SET_BETS', bets);
+            console.log("bets", bets);
+        } catch(error){
+
+        }
+    },
+
+    // Create Team
+    async POST_TEAM({ commit }, payload){
+        try{
+            console.log('payload', payload)
+            let teams = await axios.post(`/create/team`, payload)
+                .then(response => {
+                    return response.data;
+                });
+                commit('SET_TEAMS', teams);
+                console.log("teams", teams);
+        } catch(error){
+            console.log("error", error);
+        }
+    },
+
+    // Create League
+    async POST_LEAGUE({ commit }, payload){
+        try{
+            console.log('payload', payload)
+            let leagues = await axios.post(`/create/league`, payload)
+                .then(response => {
+                    return response.data;
+                });
+                commit('SET_LEAGUES', leagues);
+                console.log("leagues", leagues);
+        } catch(error){
+            console.log("error", error);
+        }
+    }
 };
 
 export default actions;

@@ -14,7 +14,14 @@ let mutations = {
     SET_COOKIE(state, users){
         console.log('userszz', users)
         state.user = users;
-    }
+    },
+    SET_BETS(state, bets){
+        state.bets = bets;
+    },
+    SET_TEAMSs(state, teams){
+        console.log("teams state", teams);
+        state.teams = teams;
+    },
 };
 
 export default mutations;

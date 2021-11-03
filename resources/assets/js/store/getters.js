@@ -10,7 +10,11 @@ let getters = {
     },
     users: state => {
         return state.users;
-    }
+    },
+    bets: state => {
+        return state.bets;
+    },
+    
 };
 
 export default getters;
