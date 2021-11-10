@@ -6,6 +6,7 @@
 
 const { validate } = use('Validator')
 const Match        = use('App/Models/Match');
+const puppeteer    = require('puppeteer');
 
 /**
  * Resourceful controller for interacting with matches
@@ -173,6 +174,86 @@ class MatchController {
                 response.status(400).send(validation.messages());
             }
         } catch (error) {
+            response.status(400).send(error.message);
+        }
+    }
+
+    async crawlMatches ({ params, request, response }) {
+        try {
+            let   result  = [];
+            let   url     = "https://www.bet365.com/?fbclid=IwAR04pasK4DRMGktOS16rBe-C0RLhjKTcejjyurKuvF6-nMhM9BBqiKDDCg0#/AC/B18/C20604387/D48/E1453/F10/";
+            const browser = await puppeteer.launch({
+                headless: false,
+                timeout: 0
+            });
+            const page    = await browser.newPage();
+
+            await page.goto(url);
+            await page.waitForSelector('.cm-CouponModule');
+            await page.waitForTimeout(2000);
+
+
+            //crawl the teams
+            const crawledTeams = await page.evaluate(() => {
+                const teamsContainer = Array.from(
+                  document.querySelectorAll(".gl-Market_General-haslabels .scb-ParticipantFixtureDetailsHigherBasketball .scb-ParticipantFixtureDetailsHigherBasketball_TeamWrapper .scb-ParticipantFixtureDetailsHigherBasketball_Team")
+                );
+
+                const names = teamsContainer.map((teamContainer) => {
+                  return teamContainer.innerText;
+                });
+                return names;
+            });
+
+            //crawl the spread
+            const crawledSpreads = await page.evaluate(() => {
+                const teamsSpreads = Array.from(
+                  document.querySelectorAll(".sgl-MarketOddsExpand .sac-ParticipantCenteredStacked50OTB-wide .sac-ParticipantCenteredStacked50OTB_Handicap")
+                );
+
+                const spreads = teamsSpreads.map((teamsSpread) => {
+                  return teamsSpread.innerText;
+                });
+
+                return spreads;
+            });
+
+            const middleIndex = Math.ceil(crawledSpreads.length / 2);
+            const firstHalf   = crawledSpreads.splice(0, middleIndex);
+            const secondHalf  = crawledSpreads.splice(-middleIndex);
+
+            await browser.close();
+
+            //process team details
+            if(crawledTeams) {
+                let counter       = 0;
+                let index_counter = 0;
+
+                crawledTeams.forEach((team, index) => {
+                    if(typeof(result[index_counter]) == 'undefined') {
+                        result[index_counter] = {};
+                    }
+
+                    if(counter % 2 == 0 || counter == 0) {
+                        result[index_counter].team_a        = team;
+                        result[index_counter].team_a_spread = firstHalf[index];
+                        result[index_counter].team_a_total  = secondHalf[index];
+                    } else {
+                        result[index_counter].team_b        = team;
+                        result[index_counter].team_b_spread = firstHalf[index];
+                        result[index_counter].team_b_total  = secondHalf[index];
+                    }
+
+                    if(result[index_counter].team_a && result[index_counter].team_b) {
+                        index_counter++;
+                    }
+
+                    counter++;
+                });
+            }
+
+            return result;
+        } catch (e) {
             response.status(400).send(error.message);
         }
     }

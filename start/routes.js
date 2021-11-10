@@ -71,3 +71,5 @@ Route.get("api/league", "LeagueController.index");
 Route.get('api/team', "TeamController.index");
 Route.get('api/user', "UserController.getAll");
 Route.get('api/bet', "BetController.index");
+
+Route.get('api/matches/crawl', "MatchController.crawlMatches");
