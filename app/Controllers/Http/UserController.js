@@ -203,7 +203,10 @@ class UserController {
         try {
             if (await auth.attempt(username, password)) {
                 let user = await User.findBy('username', username)
-                let accessToken = await auth.generate(user)
+                let accessToken = await auth.generate(user,
+                     {expiresIn: '30mins',
+                        type: 'bearer'
+                    })
                 user.token = accessToken;
 
                 return response.json({
