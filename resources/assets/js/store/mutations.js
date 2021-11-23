@@ -12,7 +12,7 @@ let mutations = {
         state.users = users;
     },
     SET_COOKIE(state, users){
-        console.log('userszz', users)
+        console.log('userszz', users.access_token)
         state.user = users;
     },
     SET_BETS(state, bets){

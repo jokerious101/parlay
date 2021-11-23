@@ -23,7 +23,7 @@
     "private": true,
     "dependencies": {
         "@adonisjs/ace": "^5.1.0",
-        "@adonisjs/auth": "^3.0.7",
+        "@adonisjs/auth": "^3.2.0",
         "@adonisjs/bodyparser": "~2.0.9",
         "@adonisjs/cors": "^1.0.7",
         "@adonisjs/fold": "^4.0.9",
@@ -33,6 +33,7 @@
         "@adonisjs/session": "^1.1.0",
         "@adonisjs/shield": "^1.0.8",
         "@adonisjs/validator": "^5.1.0",
+        "adonis-auth": "^1.0.7",
         "adonis-pusher": "^1.0.4",
         "axios": "^0.22.0",
         "cross-env": "^7.0.3",

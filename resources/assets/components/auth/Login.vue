@@ -53,7 +53,7 @@
 
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default {
     name: 'Login',
     components: {
@@ -70,6 +70,7 @@ export default {
         // this.$store.dispatch("GET_MATCHES");
     },
     computed: {
+        ...mapGetters(["get_user"]),
         ...mapState(["user"])
     },
     methods: {
@@ -79,9 +80,11 @@ export default {
                 password: this.password
             }
             const login = await this.$store.dispatch("LOGIN", payload)
-            if(login.success){
-                window.location = "/";
-            }
+            console.log('login', login)
+            console.log('get_user', this.get_user())
+            // if(login.success){
+            //     window.location = "/";
+            // }
         }
     },
     created(){

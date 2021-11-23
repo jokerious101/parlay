@@ -204,24 +204,13 @@ class UserController {
             if (await auth.attempt(username, password)) {
                 let user = await User.findBy('username', username)
                 let accessToken = await auth.generate(user)
+                user.token = accessToken;
 
                 return response.json({
                     success: true, 
                     user:user, 
                     access_token: accessToken})
               }
-            // const { username, password } = request.all();
-            // const user                   = await auth.attempt(username, password);
-
-            // // console.log('asdasd', await auth.getUser())
-
-            // // const asd = await auth.use('basic').authenticate()
-
-            // return response.status(200).send({
-            //     success: true,
-            //     user: user
-            // });
-
         } catch(error) {
             console.log('error', error)
             response.status(400).send({

@@ -23,7 +23,7 @@ const Route = use("Route");
 
 // Route.on('/').render('welcome')
 
-Route.get("/", "HomeController.index").middleware("auth");
+Route.get("/", "HomeController.index").middleware(['auth']);
 Route.get("/dashboard", "DashboardController.index");
 
 //matches admin view

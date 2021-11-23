@@ -14,6 +14,9 @@ let getters = {
     bets: state => {
         return state.bets;
     },
+    get_user: state => {
+        return state.user
+    }
     
 };
 
