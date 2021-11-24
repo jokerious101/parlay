@@ -10,6 +10,7 @@ Vue.use(Vuex);
 Vue.component("login", require("../components/auth/Login.vue").default);
 Vue.component("register", require("../components/auth/Register.vue").default);
 Vue.component("matches", require("../components/match/Matches.vue").default);
+Vue.component('creatematch', require("../components/dashboard/CreateMatch.vue").default);
 Vue.component("createteam", require("../components/dashboard/CreateTeam.vue").default);
 Vue.component('createleague', require("../components/dashboard/CreateLeague.vue").default);
 Vue.component('leagues', require("../components/dashboard/League.vue").default);

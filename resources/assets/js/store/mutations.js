@@ -1,6 +1,9 @@
 let mutations = {
-    GET_MATCHES(state, matches) {
-        state.matches = matches;
+    // GET_MATCHES(state, matches) {
+    //     state.matches = matches;
+    // },
+    SET_MATCHES(state, matches){
+        state.matches = matches
     },
     SET_LEAGUES(state, leagues) {
         state.leagues = leagues;

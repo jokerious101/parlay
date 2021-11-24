@@ -181,14 +181,17 @@ class MatchController {
     async crawlMatches ({ params, request, response }) {
         try {
             let   result  = [];
-            let   url     = "https://www.bet365.com/?fbclid=IwAR04pasK4DRMGktOS16rBe-C0RLhjKTcejjyurKuvF6-nMhM9BBqiKDDCg0#/AC/B18/C20604387/D48/E1453/F10/";
+            const data = {
+                link: request.input('link')
+            }
+            // let   url     = "https://www.bet365.com/?fbclid=IwAR04pasK4DRMGktOS16rBe-C0RLhjKTcejjyurKuvF6-nMhM9BBqiKDDCg0#/AC/B18/C20604387/D48/E1453/F10/";
             const browser = await puppeteer.launch({
                 headless: false,
                 timeout: 0
             });
             const page    = await browser.newPage();
 
-            await page.goto(url);
+            await page.goto(data.link);
             await page.waitForSelector('.cm-CouponModule');
             await page.waitForTimeout(2000);
 

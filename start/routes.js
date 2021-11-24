@@ -23,7 +23,8 @@ const Route = use("Route");
 
 // Route.on('/').render('welcome')
 
-Route.get("/", "HomeController.index").middleware("auth");
+// Route.get("/", "HomeController.index").middleware("auth");
+Route.get("/", "HomeController.index");
 Route.get("/dashboard", "DashboardController.index");
 
 //matches admin view
@@ -72,4 +73,4 @@ Route.get('api/team', "TeamController.index");
 Route.get('api/user', "UserController.getAll");
 Route.get('api/bet', "BetController.index");
 
-Route.get('api/matches/crawl', "MatchController.crawlMatches");
+Route.post('api/matches/crawl', "MatchController.crawlMatches");
